@@ -7,6 +7,8 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import authRoutes from './routes/auth.js';
 import employeeRoutes from './routes/employees.js';
 import attendanceRoutes from './routes/attendance.js';
@@ -15,7 +17,9 @@ import announcementRoutes from './routes/announcements.js';
 import trainingRoutes from './routes/training.js';
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+const allowedOrigin = process.env.CLIENT_URL || (process.env.NODE_ENV === 'production' ? false : 'http://localhost:5173');
+const clientDist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../client/dist');
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
@@ -26,6 +30,13 @@ app.use('/api/attendance', attendanceRoutes);
 app.use('/api/leaves', leaveRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/training', trainingRoutes);
+app.use(express.static(clientDist));
+app.get('*', (req, res, next) => {
+  if (req.path === '/api' || req.path.startsWith('/api/')) return next();
+  res.sendFile(path.join(clientDist, 'index.html'), (error) => {
+    if (error) next(error);
+  });
+});
 
 app.use((err, _req, res, _next) => {
   console.error(err);

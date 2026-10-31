@@ -1,0 +1,28 @@
+.announcement-feed,.training-panel{overflow:hidden}
+.announcement-feed{background:#fff;border:1px solid var(--line);border-radius:8px}
+.announcement-entry{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:16px;padding:22px;border-bottom:1px solid var(--line)}
+.announcement-entry:last-child{border-bottom:0}
+.announcement-entry.is-pinned{background:#fffdf6}
+.announcement-mark,.training-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:8px;color:#a86a12;background:#fff2d5}
+.announcement-content{min-width:0}
+.announcement-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+.announcement-meta time{margin-left:auto}
+.pinned-label{display:inline-flex;align-items:center;gap:4px;color:#a86a12;font-weight:700}
+.announcement-content h2,.training-info h2{margin:11px 0 7px;color:var(--ink);font-family:Manrope,sans-serif;font-size:17px;font-weight:750}
+.announcement-content p,.training-info>p{margin:0;color:#58657a;font-size:13px;line-height:1.7;white-space:pre-wrap}
+.announcement-content>small{display:block;margin-top:12px;color:#8b95a5;font-size:11px}
+.checkbox-field{display:flex;align-items:center;gap:9px;min-height:42px}
+.checkbox-field input{width:16px;height:16px;accent-color:var(--blue)}
+.training-list{padding:0 20px}
+.training-entry{display:grid;grid-template-columns:42px minmax(0,1fr);gap:16px;padding:21px 2px;border-bottom:1px solid var(--line)}
+.training-entry:last-child{border-bottom:0}
+.training-icon{color:#267b68;background:#e4f5ef}
+.training-info{min-width:0}
+.training-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.training-heading>div:first-child{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.training-department{color:var(--muted);font-size:12px}
+.training-info h2{margin:9px 0 5px}
+.training-details{display:flex;gap:16px;flex-wrap:wrap;margin-top:13px;color:#68758a;font-size:11px}
+.training-details span{display:inline-flex;align-items:center;gap:6px}
+.training-details svg{color:#8b95a5}
+@media(max-width:560px){.announcement-entry{grid-template-columns:34px minmax(0,1fr);gap:11px;padding:16px}.announcement-mark,.training-icon{width:34px;height:34px}.announcement-entry>.small-icon-button{grid-column:2;justify-self:end;grid-row:2}.announcement-meta time{margin-left:0}.training-list{padding:0 14px}.training-entry{grid-template-columns:34px minmax(0,1fr);gap:11px;padding:17px 0}.training-heading{align-items:flex-start}.training-details{gap:9px;flex-direction:column}}

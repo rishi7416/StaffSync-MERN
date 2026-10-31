@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: staffsync-mern
+    runtime: node
+    plan: free
+    buildCommand: npm install --prefix client && npm install --prefix server && npm run build --prefix client
+    startCommand: npm start --prefix server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VITE_API_URL
+        value: /api
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false

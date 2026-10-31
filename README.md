@@ -115,8 +115,10 @@ cd client
 Copy `.env.example` to `.env` if you need to change the API URL. The default is:
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=/api
 ```
+
+Vite proxies `/api` requests to `http://localhost:5000` during local development.
 
 Install dependencies:
 
@@ -141,6 +143,26 @@ npm run dev
 Open the local URL printed by Vite, usually `http://localhost:5173`. Sign in using the demo credentials above.
 
 You can also install the root development dependency and run both with `npm run install:all` followed by `npm run dev` from the root folder.
+
+## Deploy one live URL with Render
+
+The included `render.yaml` deploys the React client and Express API as one web service. MongoDB must be hosted separately, for example on MongoDB Atlas.
+
+1. Create a MongoDB Atlas cluster and database user. Allow connections from Render in Atlas Network Access, then copy the connection URI.
+2. Before deploying, seed the first administrator into that Atlas database from a local terminal. Keep the URI and password private:
+
+	```powershell
+	$env:MONGODB_URI = "<your Atlas connection URI>"
+	$env:SEED_ADMIN_EMAIL = "admin@staffsync.local"
+	$env:SEED_ADMIN_PASSWORD = "<a unique strong password>"
+	npm run seed --prefix server
+	```
+
+3. In Render, choose **New → Blueprint**, connect `rishi7416/StaffSync-MERN`, and select the `render.yaml` blueprint.
+4. Enter the Atlas URI for `MONGODB_URI` when prompted. Render generates `JWT_SECRET` automatically.
+5. After deployment succeeds, open the `.onrender.com` URL shown for the `staffsync-mern` service and sign in using the admin email/password configured during seeding.
+
+Do not commit Atlas credentials or production passwords. Free Render services may sleep when idle and take a short time to wake on the first request.
 
 ## REST API overview
 
